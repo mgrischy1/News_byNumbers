@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+/* The side navigation menu */
+.sidebar {
+
+   float: left;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active {
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+         /* Add a black background color to the top navigation */
+.topnav {
+  position: relative;
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Centered section inside the top navigation */
+.topnav-centered a {
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+  float: right;
+}
+
+/* Responsive navigation menu - display links on top of each other instead of next to each other (for mobile devices) */
+@media screen and (max-width: 600px) {
+  .topnav a, .topnav-right {
+    float: none;
+    display: block;
+  }
+
+  .topnav-centered a {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+}
+
+
+
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <title>News By Numbers</title>
+
+</head>
+
+<body>
+<!-- The sidebar -->
+
+<div class="topnav">
+
+    <!-- Centered link -->
+    <div class="topnav-centered">
+        <a href="#home">News by Numbers</a>
+    </div>
+
+    <!-- Left-aligned links (default) -->
+    <a href="bar">home</a>
+
+    <!-- Right-aligned links -->
+    <!--  <div class="topnav-right">-->
+    <!--    <a href="#search">Search</a>-->
+    <!--    <a href="#about">About</a>-->
+    <!--  </div>-->
+
+</div>
+<!--<div class="sidebar">-->
+<!--    <a href="#irs">IRS</a>-->
+<!--    <a href="#news">News</a>-->
+<!--    <a href="#contact">Contact</a>-->
+<!--    <a href="#about">About</a>-->
+<!--</div>-->
+<ul class="sidebar">
+    <li><a href="#irs">IRS</a>
+        <ul>
+            <li><a href="#tables">Tables</a></li>
+            <li><a href="#taxGenAtMarginRate">Tax Gen At Margin Rate</a></li>
+        </ul>
+        <a href="#usaspending">USAspending API</a>
+        <ul>
+            <li><a href="#awarding_agency">Awarding Agency</a></li>
+        </ul>
+    </li>
+
+</ul>
+...
+<div class="content">
+
+
+    <h1>New by Numbers API</h1>
+    <hr>
+    <h2>IRS</h2>
+    <p>
+    <h3>Source:</h3><b> <a id="irs"
+                           href="https://www.irs.gov/statistics/soi-tax-stats-individual-income-tax-rates-and-tax-shares">irs.gov</a>
+    SOI Tax Stats - Individual Income Tax Rates and Tax Shares</b> Number of Returns, Shares of AGI,
+    Selected Income Items,
+    Credits, Total Income Tax, AGI Floor on Percentiles, and Average Tax Rates</p>
+
+    <p>This API combines data from multiple sources.
+        Listed below are all the endpoints, link to the sources, and description.</p>
+    <hr>
+    <h3>get all tables</h3>
+    <p>This will return all the names of the tables that are available on News by Numbers.</p>
+    <h3 id="tables">GET</h3>
+    <b>Endpoint:</b>
+
+    <code class="python">'http://127.0.0.1:5000/tables</code>
+    <pre>
+          <code class="python">
+            res = requests.get('http://127.0.0.1:5000/tables')
+
+            print(res.text)
+          </code>
+        </pre>
+
+    <hr>
+    <h3>Tax Generated At Marginal Rate</h3>
+    <p>Returns tax_generated_at_marginal_rate.</p>
+    <h3 id="taxGenAtMarginRate">GET</h3>
+    <b>Endpoint:</b>
+
+    <code class="python">'http://127.0.0.1:5000/tax_generated_at_marginal_rate</code>
+    <pre>
+          <code class="python">
+            import requests
+
+            res = requests.get('http://127.0.0.1:5000/tax_generated_at_marginal_rate')
+
+            print(res.text)
+          </code>
+        </pre>
+    <p>Results</p>
+    <pre>
+          <code class="python">
+                    {
+                        "message": "Success",
+                        "data": {
+                            "0 percent": "0.00",
+                            "0 percent (capital gains)": "0.00",
+                            "10 percent": "15813458.00",
+                            "10 percent (Form 8814)": "761.00",
+                            "12 percent": "115879793.00",
+                            "15 percent (capital gains)": "10822095.00",
+                            "20 percent (capital gains)": "31638952.00",
+                            "22 percent": "158845212.00",
+                            "24 percent": "84798770.00",
+                            "25 percent (capital gains)": "980296.00",
+                            "28 percent (capital gains)": "460895.00",
+                            "32 percent": "11254489.00",
+                            "35 percent": "39571568.00",
+                            "37 percent": "288453803.00",
+                            "All tax rates from all returns": "759571986.00",
+                            "Form 8615": "1051894.00"
+                        }
+                    }
+          </code>
+        </pre>
+    <hr>
+
+
+    <hr>
+    <h2>USAspending</h2>
+    <h3>Source:</h3> <a id="usaspending" href="https://api.usaspending.gov/">api.usaspending.gov</a>
+
+
+    <p>This API combines data from multiple sources.
+        Listed below are all the endpoints, link to the sources, and description.</p>
+    <hr>
+    <h3>Awarding Agencye</h3>
+    <p>Returns tax_generated_at_marginal_rate.</p>
+    <h3 id="awarding_agency">GET</h3>
+    <b>Endpoint:</b>
+
+    <code class="python">'http://127.0.0.1:5000/awarding_agency</code>
+    <pre>
+          <code class="python">
+            import requests
+
+            res = requests.get('http://127.0.0.1:5000/awarding_agency')
+
+            print(res.text)
+          </code>
+        </pre>
+    <p>Results</p>
+    <pre>
+          <code class="python">
+                    {
+                        "message": "Success",
+                        "data": {
+                            "Department of Agriculture": "1179504660697.48",
+                            "Department of Defense": "4579533936926.86",
+                            "Department of Education": "1098027597327.35",
+                            "Department of Energy": "464284213147.58",
+                            "Department of Health and Human Services": "13280301586785.72",
+                            "Department of Homeland Security": "4947420291446.19",
+                            "Department of Housing and Urban Development": "511693631546.31",
+                            "Department of Transportation": "933507402025.38",
+                            "Department of Veterans Affairs": "1715566424981.43",
+                            "Social Security Administration": "11736883473065.80"
+                        }
+                    }
+          </code>
+        </pre>
+
+</div>
+</body>
+
+</html>

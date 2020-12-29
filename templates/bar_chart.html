@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+                  /* Add a black background color to the top navigation */
+.topnav {
+  position: relative;
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Centered section inside the top navigation */
+.topnav-centered a {
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+  float: right;
+}
+
+/* Responsive navigation menu - display links on top of each other instead of next to each other (for mobile devices) */
+@media screen and (max-width: 600px) {
+  .topnav a, .topnav-right {
+    float: none;
+    display: block;
+  }
+
+  .topnav-centered a {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+}
+           canvas {
+             border-style: ridge;
+            }
+            #leftbox {
+                float:left;
+            }
+            #middlebox{
+                float:left;
+                background:Green;
+                width:50%;
+                height:280px;
+            }
+            #rightbox{
+                float:right;
+                background:blue;
+                width:25%;
+                height:280px;
+            }
+            h1{
+                color:green;
+                text-align:center;
+            }
+        </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+
+    <title>News by Number</title>
+    <script>
+        $(function () {
+            var ctx = document.getElementById("leftbox").getContext('2d');
+            var data = {
+                labels : [
+          {% for item in labels %}
+           "{{ item }}",
+          {% endfor %}
+	],
+
+        datasets : [{
+       backgroundColor: ["red", "blue", "green", "orange", "purple", "blue","red", "blue", "green", "orange", "purple", "blue","green", "orange", "purple", "blue"],
+          data : [
+            {% for item in values %}
+               "{{ item }}",
+              {% endfor %}
+	    ],
+
+          }
+        ]
+      };
+            var myDoughnutChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: {
+                 title: {
+                        display: true,
+                        text: 'Number of returns'
+                    },
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 12
+                        }
+                    }
+                }
+            });
+
+            var ctx_2 = document.getElementById("yo2").getContext('2d');
+            var data_2 = {
+                labels : [
+                  {% for item in labels2 %}
+                   "{{ item }}",
+                  {% endfor %}
+            ],
+
+                datasets : [{
+                       backgroundColor: ["red", "blue", "green", "orange", "purple", "blue","red", "blue", "green", "orange", "purple", "blue","green", "orange", "purple", "blue"],
+
+                  data : [
+                    {% for item in values2 %}
+                       "{{ item }}",
+                      {% endfor %}
+                ]
+                  }
+                ]
+              };
+            var myDoughnutChart_2 = new Chart(ctx_2, {
+                type: 'bar',
+                data: data_2,
+                options: {
+                    title: {
+                        display: true,
+                        text: '{{title}}'
+                    },
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 12
+                        }
+                    }
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+<!-- The sidebar -->
+
+       <div class="topnav">
+
+  <!-- Centered link -->
+  <div class="topnav-centered">
+    <a href="#home">News by Numbers</a>
+  </div>
+
+  <!-- Left-aligned links (default) -->
+  <a href="API">API</a>
+
+  <!-- Right-aligned links -->
+<!--  <div class="topnav-right">-->
+<!--    <a href="#search">Search</a>-->
+<!--    <a href="#about">About</a>-->
+<!--  </div>-->
+
+</div>
+       <canvas id = "leftbox" width="700" height="500"></canvas>
+       <canvas id="yo2" width="700" height="500"></canvas>
+</body>
+</html>
