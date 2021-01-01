@@ -6,6 +6,22 @@ import pandas as pd
 
 
 class AwsRds:
+    #  class variables that start with tbl are database tables
+    tbl_adjusted_gross_income_less_deficit = 'Adjusted gross income less deficit'
+    tbl_alternative_minimum_tax_amount = 'Alternative minimum tax Amount'
+    tbl_alternative_minimum_tax_number_of_returns = 'Alternative minimum tax Number of returns'
+    tbl_ITAC_APAG_income_less_deficit = 'ITAC APAG income less deficit'
+    tbl_ITAC_APM_taxable_income_one = 'ITAC APM taxable income [1]'
+    tbl_income_tax_after_credits_total = 'Income tax after credits Total'
+    tbl_modified_taxable_income_one_At_all_rates = 'Modified taxable income [1] At all rates'
+    tbl_modified_taxable_income_one_at_marginal_rate = 'Modified taxable income [1] At marginal rate'
+    tbl_net_investment_income_tax_amount = 'Net investment income tax Amount'
+    tbl_net_investment_income_tax_number_of_returns = 'Net investment income tax Number of returns'
+    tbl_number_of_returns = 'Number of returns'
+    tbl_tax_generated_at_all_rates = 'Tax generated At all rates'
+    tbl_tax_generated_at_marginal_rate = 'Tax generated At marginal rate'
+    tbl_awarding_agency = 'awarding_agency'
+
     def __init__(self):
         name: str
         value: list
@@ -33,7 +49,6 @@ class AwsRds:
                 cursor = cnx.cursor()
                 cursor.execute(create_awarding_agency_table)
 
-
     def show_databeses(self):
         try:
             cnx = mysql.connector.connect(user='admin', password='123Weezer',
@@ -54,15 +69,13 @@ class AwsRds:
             cnx.close()
 
     def show_tables(self):
-            cnx = mysql.connector.connect(user='admin', password='123Weezer',
-                                          host='database-1.c9vvzuo2osva.us-east-2.rds.amazonaws.com',
-                                          database='news_by_numbers')
-            crs = cnx.cursor()
-            # crs.execute("CREATE DATABASE news_by_numbers")
-            crs.execute("show tables")
-            return crs.fetchall()
-
-
+        cnx = mysql.connector.connect(user='admin', password='123Weezer',
+                                      host='database-1.c9vvzuo2osva.us-east-2.rds.amazonaws.com',
+                                      database='news_by_numbers')
+        crs = cnx.cursor()
+        # crs.execute("CREATE DATABASE news_by_numbers")
+        crs.execute("show tables")
+        return crs.fetchall()
 
     def insert(self):
         try:
@@ -137,53 +150,74 @@ class AwsRds:
             cursor = cnx.cursor()
             cursor.execute(altr)
 
-    def number_of_return(self):
+    # def number_of_return(self):
+    #     main_list = []
+    #     vj = []
+    #     l = []
+    #     s = f'SELECT * FROM `Number of returns`;'
+    #     cnx = mysql.connector.connect(user='admin', password='123Weezer',
+    #                                   host='database-1.c9vvzuo2osva.us-east-2.rds.amazonaws.com',
+    #                                   database='news_by_numbers')
+    #     cursor = cnx.cursor()
+    #     cursor.execute(s)
+    #     for i in cursor.fetchall():
+    #         # print(i)
+    #         (k, v) = i
+    #
+    #         vj.append(k)
+    #         l.append(str(v))
+    #     # print(l)
+    #     main_list.append(vj)
+    #     main_list.append(l)
+    #     return main_list
+    #
+    # def tax_generated_at_marginal_rate(self):
+    #     main_list = []
+    #     vj = []
+    #     l = []
+    #     s = f'SELECT * FROM `Tax generated At marginal rate`;'
+    #     cnx = mysql.connector.connect(user='admin', password='123Weezer',
+    #                                   host='database-1.c9vvzuo2osva.us-east-2.rds.amazonaws.com',
+    #                                   database='news_by_numbers')
+    #     cursor = cnx.cursor()
+    #     cursor.execute(s)
+    #     for i in cursor.fetchall():
+    #         # print(i)
+    #         (k, v) = i
+    #
+    #         vj.append(k)
+    #         l.append(str(v))
+    #     # print(l)
+    #     main_list.append(vj)
+    #     main_list.append(l)
+    #     return main_list
+    #
+    # def awarding_agency(self):
+    #     main_list = []
+    #     vj = []
+    #     l = []
+    #     s = f'SELECT * FROM `awarding_agency`;'
+    #     cnx = mysql.connector.connect(user='admin', password='123Weezer',
+    #                                   host='database-1.c9vvzuo2osva.us-east-2.rds.amazonaws.com',
+    #                                   database='news_by_numbers')
+    #     cursor = cnx.cursor()
+    #     cursor.execute(s)
+    #     for i in cursor.fetchall():
+    #         # print(i)
+    #         (k, v) = i
+    #
+    #         vj.append(k)
+    #         l.append(str(v))
+    #     # print(l)
+    #     main_list.append(vj)
+    #     main_list.append(l)
+    #     return main_list
+
+    def irs_data(self, table_name: str):
         main_list = []
         vj = []
         l = []
-        s = f'SELECT * FROM `Number of returns`;'
-        cnx = mysql.connector.connect(user='admin', password='123Weezer',
-                                      host='database-1.c9vvzuo2osva.us-east-2.rds.amazonaws.com',
-                                      database='news_by_numbers')
-        cursor = cnx.cursor()
-        cursor.execute(s)
-        for i in cursor.fetchall():
-            # print(i)
-            (k, v) = i
-
-            vj.append(k)
-            l.append(str(v))
-        # print(l)
-        main_list.append(vj)
-        main_list.append(l)
-        return main_list
-
-    def tax_generated_at_marginal_rate(self):
-        main_list = []
-        vj = []
-        l = []
-        s = f'SELECT * FROM `Tax generated At marginal rate`;'
-        cnx = mysql.connector.connect(user='admin', password='123Weezer',
-                                      host='database-1.c9vvzuo2osva.us-east-2.rds.amazonaws.com',
-                                      database='news_by_numbers')
-        cursor = cnx.cursor()
-        cursor.execute(s)
-        for i in cursor.fetchall():
-            # print(i)
-            (k, v) = i
-
-            vj.append(k)
-            l.append(str(v))
-        # print(l)
-        main_list.append(vj)
-        main_list.append(l)
-        return main_list
-
-    def awarding_agency(self):
-        main_list = []
-        vj = []
-        l = []
-        s = f'SELECT * FROM `awarding_agency`;'
+        s = f'SELECT * FROM `{table_name}`;'
         cnx = mysql.connector.connect(user='admin', password='123Weezer',
                                       host='database-1.c9vvzuo2osva.us-east-2.rds.amazonaws.com',
                                       database='news_by_numbers')

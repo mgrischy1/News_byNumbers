@@ -9,13 +9,18 @@ from flask_restful import Resource, Api, reqparse
 app = Flask(__name__)
 api = Api(app)
 r = AwsRds()
-lists = r.number_of_return()
+lists = r.irs_data(r.tbl_number_of_returns)
 labels = lists[0]
 values = lists[1]
 
-lists2 = r.tax_generated_at_marginal_rate()
+lists2 = r.irs_data(r.tbl_tax_generated_at_marginal_rate)
 labels2 = lists2[0]
 values2 = lists2[1]
+
+lists3 = r.irs_data(r.tbl_adjusted_gross_income_less_deficit)
+labels3 = lists3[0]
+values3 = lists3[1]
+
 
 
 @app.route("/")
@@ -25,8 +30,11 @@ def bar():
     bar_values = values
     bar_labels2 = labels2
     bar_values2 = values2
-    return render_template('bar_chart.html', title='Tax generated At marginal rate', max=max(bar_values),
-                           labels2=bar_labels2, values2=bar_values2, labels=bar_labels, values=bar_values)
+    bar_labels3 = labels3
+    bar_values3 = values3
+    return render_template('fa.html', title='Tax generated At marginal rate', max=max(bar_values),
+                           labels2=bar_labels2, values2=bar_values2, labels=bar_labels, values=bar_values,
+                           labels3=bar_labels3, values3=bar_values3)
 
 
 @app.route("/API")
@@ -43,7 +51,7 @@ class Tables(Resource):
 
 class TaxGeneratedAtMarginalRate(Resource):
     def get(self):
-        tax_gen_margin_rate = r.tax_generated_at_marginal_rate()
+        tax_gen_margin_rate = r.irs_data(r.tbl_tax_generated_at_marginal_rate)
         res = dict(zip(tax_gen_margin_rate[0], tax_gen_margin_rate[1]))
 
         return {'message': 'Success', 'data': res}, 200
@@ -51,7 +59,7 @@ class TaxGeneratedAtMarginalRate(Resource):
 
 class AwardingAgency(Resource):
     def get(self):
-        aa = r.awarding_agency()
+        aa = r.irs_data(r.tbl_awarding_agency)
         res = dict(zip(aa[0], aa[1]))
         return {'message': 'Success', 'data': res}, 200
 

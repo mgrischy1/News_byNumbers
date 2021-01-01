@@ -73,15 +73,14 @@
             }
             #rightbox{
                 float:right;
-                background:blue;
-                width:25%;
-                height:280px;
+
             }
             h1{
                 color:green;
                 text-align:center;
             }
-        </style>
+
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -166,7 +165,41 @@
                     }
                 }
             });
+
+      var ctx_3 = document.getElementById("tbl").getContext('2d');
+        var data_3 = {
+            labels : [
+              {% for item in labels3 %}
+               "{{ item }}",
+              {% endfor %}
+        ],
+
+            datasets : [{
+                   backgroundColor: ["red", "blue", "green", "orange", "purple", "blue","red", "blue", "green", "orange", "purple", "blue","green", "orange", "purple", "blue"],
+
+              data : [
+                {% for item in values3 %}
+                   "{{ item }}",
+                  {% endfor %}
+            ]
+              }
+            ]
+          };
+        var myDoughnutChart_3 = new Chart(ctx_3, {
+            type: 'bar',
+            data: data_3,
+            options: {
+                title: {
+                    display: true,
+                    text: 'tbl3'
+                },
+                responsive: false,
+                maintainAspectRatio: false
+
+            }
         });
+
+
 
     </script>
 </head>
@@ -174,24 +207,25 @@
 
 <!-- The sidebar -->
 
-       <div class="topnav">
+<div class="topnav">
 
-  <!-- Centered link -->
-  <div class="topnav-centered">
-    <a href="#home">News by Numbers</a>
-  </div>
+    <!-- Centered link -->
+    <div class="topnav-centered">
+        <a href="#home">News by Numbers</a>
+    </div>
 
-  <!-- Left-aligned links (default) -->
-  <a href="API">API</a>
+    <!-- Left-aligned links (default) -->
+    <a href="API">API</a>
 
-  <!-- Right-aligned links -->
-<!--  <div class="topnav-right">-->
-<!--    <a href="#search">Search</a>-->
-<!--    <a href="#about">About</a>-->
-<!--  </div>-->
+    <!-- Right-aligned links -->
+    <!--  <div class="topnav-right">-->
+    <!--    <a href="#search">Search</a>-->
+    <!--    <a href="#about">About</a>-->
+    <!--  </div>-->
 
 </div>
-       <canvas id = "leftbox" width="700" height="500"></canvas>
-       <canvas id="yo2" width="700" height="500"></canvas>
+<canvas id="leftbox" width="600" height="400"></canvas>
+<canvas id="yo2" width="600" height="400"></canvas>
+<canvas id="tbl" width="600" height="400"></canvas>
 </body>
 </html>
