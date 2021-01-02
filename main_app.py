@@ -1,9 +1,6 @@
-from flask import Flask, Markup, render_template
+from flask import Flask, render_template
 from irs_xls import *
-import markdown
-import os
-from flask import Flask, g
-from flask_restful import Resource, Api, reqparse
+from flask_restful import Resource, Api
 #  USA-NewsByNumbers
 # kill -9 $(ps -A | grep python | awk '{print $1}')
 app = Flask(__name__)
