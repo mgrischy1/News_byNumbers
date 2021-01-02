@@ -4,7 +4,7 @@ import markdown
 import os
 from flask import Flask, g
 from flask_restful import Resource, Api, reqparse
-
+#  USA-NewsByNumbers
 # kill -9 $(ps -A | grep python | awk '{print $1}')
 app = Flask(__name__)
 api = Api(app)
@@ -32,7 +32,7 @@ def bar():
     bar_values2 = values2
     bar_labels3 = labels3
     bar_values3 = values3
-    return render_template('fa.html', title='Tax generated At marginal rate', max=max(bar_values),
+    return render_template('front_page.html', title='Tax generated At marginal rate', max=max(bar_values),
                            labels2=bar_labels2, values2=bar_values2, labels=bar_labels, values=bar_values,
                            labels3=bar_labels3, values3=bar_values3)
 

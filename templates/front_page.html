@@ -79,6 +79,42 @@
                 color:green;
                 text-align:center;
             }
+           h2,p{padding:5px}
+
+#overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    width: 100%;
+     z-index:1;
+     height: 100%;
+}
+
+#overlay div{
+            position: relative;
+            left: 50%;
+            margin-left:-150px;
+            border: 1px solid #666;
+            background-color: #000;
+            border-radius:5px;
+            color: #FFF;
+            width:300px;
+            z-index:3;
+            top:10px;
+    }
+
+#overlay div.background{
+            position: absolute;
+            width:100%;
+            height: 100%;
+            margin:auto;
+            background-color: #000;
+            opacity:0.5;
+            z-index:2;
+            top:0;
+            left:0;
+    }
+
 
 
     </style>
@@ -90,6 +126,15 @@
 
     <title>News by Number</title>
     <script>
+    var $overlay = $('<div id="overlay"></div>');
+$("body").append($overlay);
+
+$("#imageGallery a").click(function(event){
+  event.preventDefault();
+  var href = $(this).attr("href");
+  $overlay.show();
+
+});
        var barChartData = {
             labels: [
           {% for item in labels %}
@@ -434,6 +479,8 @@
         };
 
 
+
+
     </script>
 </head>
 <body>
@@ -457,15 +504,42 @@
     <!--  </div>-->
 
 </div>
-<div style="width: 100%; overflow: hidden;">
-  <div style="width: 455px; float: left;"><canvas id="canvas" height="400" width="400"></canvas></div>
-  <div style="width: 455px; float: left;"><canvas id="canvas2" height="400" width="400"></canvas></div>
-  <div style="width: 455px; float: left;"><canvas id="canvas3" height="400" width="400"></canvas></div>
-  <div style="width: 455px; float: left;"><canvas id="canvas4" height="400" width="400"></canvas></div>
-  <div style="width: 455px; float: left;"><canvas id="canvas5" height="400" width="400"></canvas></div>
-  <div style="width: 455px; float: left;"><canvas id="canvas6" height="400" width="400"></canvas></div>
-  <div style="width: 455px; float: left;"><canvas id="canvas7" height="400" width="400"></canvas></div>
-  <div style="width: 455px; float: left;"><canvas id="canvas8" height="400" width="400"></canvas></div>
+<div id="overlay">
+
+    <div>
+        <h2>NEWS by Numbers</h2>
+        <p>Welcome to News by numbers!! A one stop shop for all government and statistical data. Why try to find related
+            data from multiple sites using a variety of formats to parse when we do the work for you.</p>
+        <button onclick="window.location.href='API';">
+            Go to API
+        </button>
+    </div>
+    <div class="background"></div>
+</div>
+<div style="width: 455px; float: left;">
+    <canvas id="canvas" height="400" width="400"></canvas>
+</div>
+<div style="width: 455px; float: left;">
+    <canvas id="canvas2" height="400" width="400"></canvas>
+</div>
+<div style="width: 455px; float: left;">
+    <canvas id="canvas3" height="400" width="400"></canvas>
+</div>
+<div style="width: 455px; float: left;">
+    <canvas id="canvas4" height="400" width="400"></canvas>
+</div>
+<div style="width: 455px; float: left;">
+    <canvas id="canvas5" height="400" width="400"></canvas>
+</div>
+<div style="width: 455px; float: left;">
+    <canvas id="canvas6" height="400" width="400"></canvas>
+</div>
+<div style="width: 455px; float: left;">
+    <canvas id="canvas7" height="400" width="400"></canvas>
+</div>
+<div style="width: 455px; float: left;">
+    <canvas id="canvas8" height="400" width="400"></canvas>
+</div>
 
 </div>
 </body>
